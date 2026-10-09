@@ -1,0 +1,64 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: contract-audit-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: example_root_password
+      MYSQL_DATABASE: contract_audit
+      MYSQL_USER: contract_user
+      MYSQL_PASSWORD: contract_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+  app:
+    build: .
+    container_name: contract-audit-app
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      PORT: 3001
+      HOST: 0.0.0.0
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: contract_user
+      DB_PASSWORD: contract_password
+      DB_NAME: contract_audit
+      DEEPSEEK_MODEL: deepseek-chat
+      DEEPSEEK_TRACKING_ID: 14ef73d6-457f-4e07-af5c-02aa83ba6f75
+      OCR_LANG: eng+chi_sim
+      FAMIE_ENABLED: "true"
+      FAMIE_BASE_URL: http://famie:9000
+    ports:
+      - "8080:3001"
+    volumes:
+      - ./deepseek-api-key.txt:/app/deepseek-api-key.txt:ro
+      - ./data/seal:/app/data/seal
+
+  famie:
+    build:
+      context: ./third_party/famie
+      dockerfile: Dockerfile
+    cpus: 4
+    mem_limit: 6g
+    container_name: contract-audit-famie
+    restart: unless-stopped
+    profiles: ["famie"]
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - famie_data:/home/famie/.famie
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 300s
+
+volumes:
+  mysql_data:
+  famie_data:

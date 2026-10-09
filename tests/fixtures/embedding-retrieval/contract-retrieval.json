@@ -1,0 +1,32 @@
+[
+  {
+    "id": "payment-terms",
+    "query": "验收完成后何时付款，是否需要发票？",
+    "relevant": ["payment"],
+    "sources": [
+      { "id": "payment", "title": "价款与结算", "excerpt": "合同价款应在验收合格、乙方提交合法有效发票后十五个工作日内支付。" },
+      { "id": "confidentiality", "title": "保密义务", "excerpt": "双方对履约中知悉的商业秘密承担保密义务。" },
+      { "id": "dispute", "title": "争议解决", "excerpt": "因本合同产生争议，双方先协商，协商不成的向合同履行地人民法院起诉。" }
+    ]
+  },
+  {
+    "id": "termination-notice",
+    "query": "一方提前解除合同需要怎样通知？",
+    "relevant": ["termination"],
+    "sources": [
+      { "id": "termination", "title": "解除与通知", "excerpt": "任何一方主张解除合同，应书面通知对方，并说明解除依据；解除后十日内完成结算和资料交接。" },
+      { "id": "acceptance", "title": "交付验收", "excerpt": "交付成果应在五个工作日内验收，未通过验收的应当整改。" },
+      { "id": "price", "title": "计价方式", "excerpt": "服务费按月结算，含税金额以双方确认的结算单为准。" }
+    ]
+  },
+  {
+    "id": "risk-liability",
+    "query": "合同写明承担一切损失但没有责任上限，可能有什么风险？",
+    "relevant": ["liability"],
+    "sources": [
+      { "id": "liability", "title": "责任边界", "excerpt": "任一方承担违约责任应以可归责的直接损失为限，责任总额不超过已收合同价款。" },
+      { "id": "force-majeure", "title": "不可抗力", "excerpt": "发生不可抗力时，受影响方应及时通知并提供证明。" },
+      { "id": "scope", "title": "服务范围", "excerpt": "乙方按照附件约定提供咨询服务和阶段性成果。" }
+    ]
+  }
+]

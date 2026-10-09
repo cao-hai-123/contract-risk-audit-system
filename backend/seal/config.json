@@ -1,0 +1,5 @@
+{
+  "version": "orb-seal-v2",
+  "hsv": { "hueLowMax": 15, "hueHighMin": 165, "saturationMin": 35, "valueMin": 35 },
+  "thresholds": { "match": 80, "possible": 65, "gap": 10 }
+}
